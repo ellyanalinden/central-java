@@ -53,6 +53,14 @@ class App extends Component {
       this.setState({places});
     }
 
+    places(){
+      setTimeout(() => {
+        this.setState({
+        placeClicked: false
+        })
+      }, 1500);
+    }
+
   componentDidMount() {
     this.getPlaces()
   }
@@ -87,43 +95,41 @@ class App extends Component {
     //let hidden = { display: this.state.shown ? 'none' : 'block'}
 
     return (
-      <div className="main-wrap" tabIndex ="0" role="application" aria-label="map-description">
+      <div className="main-wrap">
         <AppTitle />
+        <div className="map" aria-label="map-description" role="application" aria-hidden="true">
+          <Map className="map"
+            center={position}
+            zoom={this.state.zoom}>
 
-        <Map className="map"
-          center={position}
-          zoom={this.state.zoom}>
+            <TileLayer
+              attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
 
-          <TileLayer
-            attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-
-          {this.state.places.map(place => (
-            <Marker
-              key={place.venue.id}
-              position={[place.venue.location.lat, place.venue.location.lng]}
-              icon={place.placeClicked ? redIcon : blueIcon}
-                    zIndexOffset={place.placeClicked ? 10000 : 0}
-                    onClick={(e) => {
-                      console.log(e);
-                      e.target.setIcon(redIcon);
-                      setTimeout(() => {
-                        e.target.setIcon(blueIcon);
-                      }, 1500);
-                    }}>
-              <Popup
-                Popup = {place.placeClicked ? "block" : "none"}>
-                <p className="place-name">{[place.venue.name]}</p>
-                <p className="place-address">{[place.venue.location.address]}</p>
-                <p className="place-category">{[place.venue.categories[0].name]}</p>
-              </Popup>
-            </Marker>
-          ))}
-        </Map>
-
-        <Filter placeClicked={this.placeClicked.bind (this.placeId)} />
-
+              {this.state.places.map(place => (
+                <Marker
+                key={place.venue.id}
+                position={[place.venue.location.lat, place.venue.location.lng]}
+                icon={place.placeClicked ? redIcon : blueIcon}
+                      zIndexOffset={place.placeClicked ? 10000 : 0}
+                      onClick={(e) => {
+                        console.log(e);
+                        e.target.setIcon(redIcon);
+                        setTimeout(() => {
+                          e.target.setIcon(blueIcon);
+                        }, 1500);
+                      }}>
+                <Popup>
+                  <p className="place-name">{[place.venue.name]}</p>
+                  <p className="place-address">{[place.venue.location.address]}</p>
+                  <p className="place-category">{[place.venue.categories[0].name]}</p>
+                </Popup>
+                </Marker>
+              ))}
+          </Map>
+        </div>
+        <Filter placeClicked={this.placeClicked.bind (this.placeId)}/>
       </div>
     );
   }
