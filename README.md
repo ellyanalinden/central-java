@@ -20,5 +20,3 @@ Creating a single page application featuring a map of Candi Borobudur neighborho
 * https://www.youtube.com/watch?v=J7pFiXh-ydAhttps://www.youtube.com/watch?v=i6L2jLHV9j8
 * https://www.youtube.com/watch?v=dAhMIF0fNpo
 * https://egghead.io/lessons/react-use-map-to-create-react-components-from-arrays-of-data
-*
-*
