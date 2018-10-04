@@ -63,13 +63,14 @@ class Filter extends Component {
 
         <div className = 'list-container'>
           {places.map(place =>
-            <p className = 'list-places'
+            <h4 className = 'list-places'
                tabIndex="0"
                role="link"
                key={place.venue.id}
                onClick={e=>this.placeClicked(place.venue.id)}>
                {place.venue.name}
-            </p>
+                  <p> {place.venue.location.address}</p>
+            </h4>
           )}
         </div>
       </div>
