@@ -23,9 +23,6 @@ const blueIcon = L.icon({
     popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
 });
 
-//https://github.com/PaulLeCam/react-leaflet/blob/master/example/components/simple.js
-//https://www.youtube.com/watch?v=J7pFiXh-ydA
-
 class App extends Component {
   constructor (props) {
     super(props);
@@ -65,8 +62,6 @@ class App extends Component {
     this.getPlaces()
   }
 
-
-  //https://www.youtube.com/watch?v=dAhMIF0fNpo
   getPlaces = () => {
     const endPoint = "https://api.foursquare.com/v2/venues/explore?"
     const parameters = {
@@ -91,9 +86,7 @@ class App extends Component {
 
   render() {
     const position = [this.state.location.lat, this.state.location.lng];
-    //let shown ={ display: this.state.shown ? 'block' : 'none'};
-    //let hidden = { display: this.state.shown ? 'none' : 'block'}
-
+    
     return (
       <div className="main-wrap">
         <AppTitle />

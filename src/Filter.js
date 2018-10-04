@@ -2,10 +2,6 @@ import React, {Component} from "react";
 import './App.css';
 import axios from 'axios';
 
-
-//https://www.youtube.com/watch?v=dAhMIF0fNpo
-//https://egghead.io/lessons/react-use-map-to-create-react-components-from-arrays-of-data
-
 class Filter extends Component {
   constructor () {
     super();
@@ -18,7 +14,6 @@ class Filter extends Component {
     this.getPlaces()
   }
 
-    //https://www.youtube.com/watch?v=dAhMIF0fNpo
   getPlaces = () => {
     const endPoint = "https://api.foursquare.com/v2/venues/explore?"
     const parameters = {
@@ -47,7 +42,7 @@ class Filter extends Component {
 
   placeClicked(placeId) {
    this.props.placeClicked(placeId)
- }
+  }
 
   render() {
     let places = this.state.places
@@ -58,7 +53,6 @@ class Filter extends Component {
         .includes(this.state.filter.toLowerCase()))
     }
 
-
     return (
       <div className = 'side-container'>
         <input className = 'search-box'
@@ -66,7 +60,6 @@ class Filter extends Component {
           aria-label= "input-box"
           type='text'
           onChange={this.filter.bind(this)} />
-
 
         <div className = 'list-container'>
           {places.map(place =>
