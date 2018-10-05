@@ -32,7 +32,7 @@ class Filter extends Component {
         })
       })
       .catch(error => {
-        console.log("Error!" + error)
+        alert("Error!" + error)
       })
     }
 
@@ -54,7 +54,7 @@ class Filter extends Component {
     }
 
     return (
-      <div className = 'side-container'>
+      <aside className = 'side-container'>
         <input className = 'search-box'
           tabIndex="0"
           aria-label= "input-box"
@@ -63,17 +63,16 @@ class Filter extends Component {
 
         <div className = 'list-container'>
           {places.map(place =>
-            <h4 className = 'list-places'
+            <p className = 'list-places'
                tabIndex="0"
                role="link"
                key={place.venue.id}
                onClick={e=>this.placeClicked(place.venue.id)}>
                {place.venue.name}
-                  <p> {place.venue.location.address}</p>
-            </h4>
+            </p>
           )}
         </div>
-      </div>
+      </aside>
     );
   }
 }

@@ -86,7 +86,7 @@ class App extends Component {
 
   render() {
     const position = [this.state.location.lat, this.state.location.lng];
-    
+
     return (
       <div className="main-wrap">
         <AppTitle />
