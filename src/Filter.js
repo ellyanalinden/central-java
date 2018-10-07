@@ -1,12 +1,31 @@
 import React, {Component} from "react";
 import './App.css';
+import { Marker, Popup } from 'react-leaflet';
 import axios from 'axios';
+import L from 'leaflet';
+import iconRedUrl from './location-pointer-red.svg'
+import iconBlueUrl from './location-pointer-blue.svg'
+
+const redIcon = L.icon({
+    iconUrl: iconRedUrl,
+    iconSize: [38, 95], // size of the icon
+    iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+    popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
+const blueIcon = L.icon({
+    iconUrl: iconBlueUrl,
+    iconSize: [38, 95], // size of the icon
+    iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+    popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
 
 class Filter extends Component {
   constructor () {
     super();
     this.state = {
       places: [],
+      filteredPlaces: []
     };
   }
 

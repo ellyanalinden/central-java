@@ -7,7 +7,7 @@ import axios from 'axios';
 import AppTitle from './AppTitle'
 import iconRedUrl from './location-pointer-red.svg'
 import iconBlueUrl from './location-pointer-blue.svg'
-import Filter from './Filter'
+
 
 const redIcon = L.icon({
     iconUrl: iconRedUrl,
@@ -27,13 +27,14 @@ class App extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      map: {},
       location: {
         lat: -7.6079,
         lng: 110.2038
       },
       zoom: 13,
       places: [],
+      filtered: [],
+      filter: ''
     };
   }
 
@@ -84,8 +85,20 @@ class App extends Component {
       })
     }
 
+  filter = filter => {
+    this.setState({filter});
+    const filtered = this.state.places.filter (place =>
+        place.venue.name.toLowerCase()
+        .indexOf(this.state.filter.toLowerCase()) !== -1);
+        this.setState({filtered});
+  };
+
   render() {
     const position = [this.state.location.lat, this.state.location.lng];
+    let places = this.state.places
+    if(this.state.filter.length>0){
+      places = this.state.filtered
+    }
 
     return (
       <div className="main-wrap">
@@ -100,7 +113,7 @@ class App extends Component {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
 
-              {this.state.places.map(place => (
+              {places.map(place => (
                 <Marker
                 key={place.venue.id}
                 position={[place.venue.location.lat, place.venue.location.lng]}
@@ -122,7 +135,26 @@ class App extends Component {
               ))}
           </Map>
         </div>
-        <Filter placeClicked={this.placeClicked.bind (this.placeId)}/>
+        <aside className = 'side-container'>
+          <input className = 'search-box'
+            tabIndex="0"
+            aria-label= "input-box"
+            type='text'
+            onChange={e => this.filter(e.target.value)}
+            value={this.state.filter} />
+
+          <div className = 'list-container'>
+            {places.map(place =>
+              <p className = 'list-places'
+                 tabIndex="0"
+                 role="link"
+                 key={place.venue.id}
+                 >
+                 {place.venue.name}
+              </p>
+            )}
+          </div>
+        </aside>
       </div>
     );
   }
