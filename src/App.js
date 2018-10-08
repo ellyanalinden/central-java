@@ -39,6 +39,19 @@ class App extends Component {
     };
   }
 
+  placeClicked = (placeId) => {
+      let places = this.state.places;
+      places.forEach(place => {
+          if(placeId === place.venue.id) {
+              console.log('match at place' + place.venue.name)
+              place.placeClicked = true;
+          } else {
+              place.placeClicked = false;
+          }
+      });
+      this.setState({places});
+    }
+
   //Marker color change onclick from the list view
   listClick = place => {
     this.placeClicked(place.venue.id);

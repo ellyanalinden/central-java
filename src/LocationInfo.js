@@ -6,9 +6,9 @@ class LocationInfo extends Component {
     return (
       <div>
         <div className='info-container'>
-          <h2>{this.props.venue}</h2>
-          <h3>{this.props.address}</h3>
-          <h3>{this.props.category}</h3>
+          <h4>{this.props.venue}</h4>
+          <h5>{this.props.address}</h5>
+          <h5>{this.props.category}</h5>
         </div>
       </div>
     );
