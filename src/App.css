@@ -80,6 +80,24 @@ body {
   font-weight: 400;
 }
 
+.info-container {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: #eee;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  width: 50%;
+  text-align: center;
+}
+
+.hidden{
+  display: none;
+}
+
 #root {
   height: 100%;
 }

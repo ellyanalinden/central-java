@@ -4,10 +4,10 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import './App.css';
 import axios from 'axios';
-import AppTitle from './AppTitle'
 import iconRedUrl from './location-pointer-red.svg'
 import iconBlueUrl from './location-pointer-blue.svg'
-
+import AppTitle from './AppTitle'
+import LocationInfo from './LocationInfo'
 
 const redIcon = L.icon({
     iconUrl: iconRedUrl,
@@ -34,31 +34,30 @@ class App extends Component {
       zoom: 13,
       places: [],
       filtered: [],
-      filter: ''
+      filter: '',
+      info: {}
     };
   }
 
-  placeClicked = (placeId) => {
-      let places = this.state.places;
-      places.forEach(place => {
-          if(placeId === place.venue.id) {
-              console.log('match at place' + place.venue.name)
-              place.placeClicked = true;
-          } else {
-              place.placeClicked = false;
-          }
-      });
-      this.setState({places});
+  //Marker color change onclick from the list view
+  listClick = place => {
+    this.placeClicked(place.venue.id);
+    const info ={
+      venue: place.venue.name,
+      address: place.venue.location.address,
+      category: place.venue.categories[0].name,
+      id: place.venue.id
+    };
+    this.setState({info});
+    const locInfo = document.getElementById('location-info');
+    if (place.venue.id !== this.state.info.id) {
+      locInfo.classList.remove('hidden');
+    }else{
+      locInfo.classList.toggle('hidden');
     }
+  };
 
-    places(){
-      setTimeout(() => {
-        this.setState({
-        placeClicked: false
-        })
-      }, 1500);
-    }
-
+  //Fetch data from Foursquare
   componentDidMount() {
     this.getPlaces()
   }
@@ -85,6 +84,7 @@ class App extends Component {
       })
     }
 
+  //Filter marker and popup window from input box
   filter = filter => {
     this.setState({filter});
     const filtered = this.state.places.filter (place =>
@@ -133,6 +133,13 @@ class App extends Component {
                 </Popup>
                 </Marker>
               ))}
+              <div className="hidden" id="location-info">
+                <LocationInfo
+                  venue={this.state.info.venue}
+                  address={this.state.info.address}
+                  category={this.state.info.category}
+                />
+              </div>
           </Map>
         </div>
         <aside className = 'side-container'>
@@ -149,6 +156,7 @@ class App extends Component {
                  tabIndex="0"
                  role="link"
                  key={place.venue.id}
+                 onClick={() => this.listClick(place)}
                  >
                  {place.venue.name}
               </p>
