@@ -35,10 +35,11 @@ class App extends Component {
       places: [],
       filtered: [],
       filter: '',
-      info: {}
+      info: {},
     };
   }
 
+//Marker onclick from the list view
   placeClicked = (placeId) => {
       let places = this.state.places;
       places.forEach(place => {
@@ -52,7 +53,7 @@ class App extends Component {
       this.setState({places});
     }
 
-  //Marker color change onclick from the list view
+  //Popup onclick from the list view
   listClick = place => {
     this.placeClicked(place.venue.id);
     const info ={
@@ -115,11 +116,15 @@ class App extends Component {
 
     return (
       <div className="main-wrap">
-        <AppTitle />
+        <AppTitle drawerClickHandler={this.drawerToggleClickHandler} />
+
         <div className="map" aria-label="map-description" role="application" aria-hidden="true">
           <Map className="map"
             center={position}
-            zoom={this.state.zoom}>
+            zoom={this.state.zoom}
+            //handleErrorEvent
+            //https://leafletjs.com/reference-1.3.4.html#event
+            onErrorEvent={this.handleErrorEvent}>
 
             <TileLayer
               attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
@@ -155,14 +160,15 @@ class App extends Component {
               </div>
           </Map>
         </div>
+
         <aside className = 'side-container'>
           <input className = 'search-box'
             tabIndex="0"
             aria-label= "input-box"
             type='text'
+            placeholder="Search place"
             onChange={e => this.filter(e.target.value)}
             value={this.state.filter} />
-
           <div className = 'list-container'>
             {places.map(place =>
               <p className = 'list-places'

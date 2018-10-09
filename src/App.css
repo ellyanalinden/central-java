@@ -7,8 +7,25 @@ html {
 
 body {
   background-color: #E2F8E2;
+  position: relative;
 }
 
+.main-wrap {
+  height: 100%;
+  position: relative;
+}
+
+.map {
+    position: relative;
+    height: 94%;
+    margin-left: 145px;
+    margin-right: 10px;
+    margin-top:10px;
+    max-width: 100%;
+    border: 1px;
+}
+
+/*Header*/
 .header{
   position: relative;
   max-width: 100%;
@@ -16,30 +33,16 @@ body {
   margin-top: 0;
   left: 0;
   background-color: #A5E9A5;
-
 }
-
-.main-wrap {
-  height: 100%;
-}
-
-.map {
-  height: 94%;
-  margin-left: 150px;
-  margin-right: 10px;
-  margin-top:10px;
-  max-width: 100%;
-  border: 1px;
-}
-
 .project-title{
   font-style: Arial;
   text-align: center;
 }
 
+/*Popup Window*/
 .place-name {
   font-style: italic;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
 }
 
@@ -51,35 +54,57 @@ body {
 
 .place-category {
   font-style: Arial;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
 }
 
+/*Side container*/
 .side-container {
-  z-index: 100;
   position: absolute;
-  top: 70px;
-  margin-left: 20px;
-  margin-top: 10px;
-  width: 280px;
-  max-width: 100%;
+  top: 0;
+  left: 0;
+  max-width: 290px;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
-.input-box {
-  max-width: 100%;
+.search-box {
+  width: 100%;
+  max-width: 250px;
+  margin-top: 70px;
   margin-bottom: 5px;
+  margin-left: 10px;
   height: 30px;
+  border-radius: 5px;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 .list-container{
   max-width: 100%;
+  margin-left: 10px;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 .list-places {
   font-size: 20px;
-  font-weight: 400;
+  font-weight: 450;
 }
 
+.list-places:hover,
+.list-places:active {
+  color:#6C3304;
+  cursor: pointer;
+
+}
+
+/*Location info onclick from list*/
 .info-container {
   position: absolute;
   top: 70%;
@@ -90,12 +115,45 @@ body {
   border: 1px solid black;
   border-radius: 10px;
   padding: 5px;
-  width: 35%;
   text-align: center;
 }
 
 .hidden{
   display: none;
+}
+
+/* Page Responsiveness */
+@media screen  and (max-width: 400px) {
+	.map{
+		max-width:100%;
+	}
+  .side-container,
+  .search-box,
+  .list-container{
+		width: 50%;
+	}
+}
+
+@media screen  and (min-width: 401px) and (max-width: 800px) {
+	.map{
+		max-width:100%;
+	}
+  .side-container,
+  .search-box,
+  .list-container{
+		width: 70%;
+	}
+}
+
+@media screen  and (min-width: 801px) {
+	.map{
+		max-width:100%;
+	}
+  .side-container,
+  .search-box,
+  .list-container{
+		width: 100%;
+	}
 }
 
 #root {
